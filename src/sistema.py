@@ -1,4 +1,9 @@
 import csv
+#fila de atendimento
+fila_atendimento = []
+#pilha
+
+pilha_historico = []
 #Carregar os dados do arquivo CSV
 def carregar_ocorrencias(caminho_arquivo):
     ocorrencias = []
@@ -110,6 +115,7 @@ def cadastrar_ocorrencia(ocorrencias):
     descricao = input("Digite a descrição da ocorrência: ")
     localidade = input("Digite a localidade da ocorrência: ")
     data_abertura = input("Digite a data de abertura da ocorrência: ")
+    #Status inicial da ocorrência é sempre "ABERTA" e data de conclusão é None
     status = "ABERTA"
     data_conclusao = None
 
@@ -128,10 +134,112 @@ def cadastrar_ocorrencia(ocorrencias):
         print("Ocorrência inválida:", erros)
         return None
     else:
-        return ocorrencia
+        #Adcionando a ocorrência à lista de ocorrências
         ocorrencias.append(ocorrencia)
+        return ocorrencia
     
+#Alterando status de ocorrências 
+def alterar_status(ocorrencias, id, novo_status):
+    for ocorrencia in ocorrencias:
+        if ocorrencia["id"] == id:
+            if novo_status not in ["ABERTA", "EM_ANALISE", "CONCLUIDA"]:
+                print("Status inválido. Tente novamente.")
+                return False
+            ocorrencia["status"] = novo_status
+            if novo_status != "CONCLUIDA":
+                ocorrencia["data_conclusao"] = None
+            if novo_status == "CONCLUIDA":
+                ocorrencia["data_conclusao"] = int(input("Digite a data de conclusão da ocorrência: "))
+            return True
+    return False
 
+#Registrar histórico de alterações de status
+def registrar_historico(ocorrencias, id, novo_status):
+    for ocorrencia in ocorrencias:
+        if ocorrencia["id"] == id:
+            if "historico" not in ocorrencia:
+                ocorrencia["historico"] = []
+            ocorrencia["historico"].append({"status": novo_status, "data": int(input("Digite a data da alteração de status: "))})
+            return True
+    return False
+
+#Listar histórico de alterações de status
+def listar_historico(ocorrencias, id):
+    for ocorrencia in ocorrencias:
+        if ocorrencia["id"] == id:
+            if "historico" in ocorrencia:
+                return ocorrencia["historico"]
+            else:
+                return []
+    return None
+
+#Adicionar fila de ocorrencias. Retorne True se conseguir adicionar e False se não encontrar.
+def adicionar_fila(ocorrencias,fila_atendimento, id):
+    
+    for ocorrencia in ocorrencias:
+        if ocorrencia["id"] == id:
+            fila_atendimento.append(ocorrencia)
+            return True
+    return False
+
+
+# Atender ocorrências da fila
+def atender_ocorrencias(fila_atendimento):
+
+    while fila_atendimento:
+
+        ocorrencia = fila_atendimento.pop(0)
+
+        print("Atendendo ocorrência:", ocorrencia["id"])
+
+        if ocorrencia["status"] == "CONCLUIDA":
+            print("A ocorrência já está concluída.")
+            continue
+
+        status_anterior = ocorrencia["status"]
+
+        novo_status = input(
+            "Digite o novo status (ABERTA, EM_ANALISE, CONCLUIDA): "
+        )
+
+        resultado = alterar_status(
+            [ocorrencia],
+            ocorrencia["id"],
+            novo_status
+        )
+
+        if resultado:
+            registrar_historico(
+                [ocorrencia],
+                ocorrencia["id"],
+                novo_status
+            )
+            print("Status atualizado com sucesso!")
+
+        else:
+            print("Não foi possível alterar o status.")
+            fila_atendimento.insert(0, ocorrencia)
+
+    print("Fila de atendimento finalizada.")
+
+# Adicionar uma atividade à pilha de histórico.
+def adicionar_atividade(pilha_historico, atividade):
+    pilha_historico.append(atividade)
+
+#Consultar a última atividade da pilha de histórico.
+def consultar_ultima_atividade(pilha_historico):
+    if pilha_historico:
+        return pilha_historico[-1]
+    else:
+        return None
+#Exibir todas as atividades da pilha de histórico.
+def exibir_atividades(pilha_historico):
+    if pilha_historico:
+        for atividade in pilha_historico:
+            print(atividade)
+    else:
+        print("Nenhuma atividade registrada.")
+        
 dados_validos, dados_invalidos = separar_ocorrencias(dados)
 
 indice = criar_indice_ocorrencias(dados_validos)
@@ -155,3 +263,7 @@ print("Total de ocorrências abertas:", len(resultado))
 
 for ocorrencia in resultado:
     print(ocorrencia["id"], ocorrencia["descricao"])
+nova = cadastrar_ocorrencia(dados_validos)
+
+print("Total de ocorrências:", len(dados_validos))
+print("Nova ocorrência:", nova)
