@@ -235,7 +235,7 @@ def consultar_ultima_atividade(pilha_historico):
 #Exibir todas as atividades da pilha de histórico.
 def exibir_atividades(pilha_historico):
     if pilha_historico:
-        for atividade in pilha_historico:
+        for atividade in reversed(pilha_historico):
             print(atividade)
     else:
         print("Nenhuma atividade registrada.")
