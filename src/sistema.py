@@ -239,7 +239,134 @@ def exibir_atividades(pilha_historico):
             print(atividade)
     else:
         print("Nenhuma atividade registrada.")
-        
+
+#recebe uma lista de ocorrências e colocar cada ocorrência dentro da categoria correspondente sendo bairro a hierarquia principal
+
+def organizar_ocorrencias_por_categoria(ocorrencias):
+    organizadas = {}
+    for ocorrencia in ocorrencias:
+        categoria = ocorrencia["categoria"]
+        if categoria not in organizadas:
+            organizadas[categoria] = []
+        organizadas[categoria].append(ocorrencia)
+    return organizadas
+
+def organizar_ocorrencias_por_bairro(ocorrencias):
+    organizadas = {}
+    for ocorrencia in ocorrencias:
+        bairro = ocorrencia["localidade"]
+        if bairro not in organizadas:
+            organizadas[bairro] = []
+        organizadas[bairro].append(ocorrencia)
+    return organizadas
+
+#organizaar hierarquia
+def organizar_hierarquia(ocorrencias):
+    organizadas = {
+        "Jardim Esperanca": {}
+    }
+
+    for ocorrencia in ocorrencias:
+        bairro = "Jardim Esperanca"
+        categoria = ocorrencia["categoria"]
+
+        if categoria not in organizadas[bairro]:
+            organizadas[bairro][categoria] = []
+
+        organizadas[bairro][categoria].append(ocorrencia)
+
+    return organizadas
+#Matriz que conta as ocorrencias por categoria
+def gerar_matriz_categorias(ocorrencias):
+    matriz = {}
+    for ocorrencia in ocorrencias:
+        categoria = ocorrencia["categoria"]
+        if categoria not in matriz:
+            matriz[categoria] = 0
+        matriz[categoria] += 1
+    return matriz
+#gerar matriz que conta as ocorrencias por status
+def gerar_matriz_status(ocorrencias):
+    matriz = {}
+    for ocorrencia in ocorrencias:
+        status = ocorrencia["status"]
+        if status not in matriz:
+            matriz[status] = 0
+        matriz[status] += 1
+    return matriz
+#gerando a matriz de status e categorias das ocorrências
+def gerar_matriz_status_e_categorias(ocorrencias):
+    matriz = {}
+    for ocorrencia in ocorrencias:
+        categoria = ocorrencia["categoria"]
+        status = ocorrencia["status"]
+
+        if categoria not in matriz:
+            matriz[categoria] = {}
+
+        if status not in matriz[categoria]:
+            matriz[categoria][status] = 0
+
+        matriz[categoria][status] += 1
+
+    return matriz
+
+#Calcular o  percentual de ocorrências concluídas em relação ao total de ocorrências
+def calcular_percentual_concluidas(ocorrencias):
+    total = len(ocorrencias)
+    
+    
+    if total == 0:
+        return 0.0
+    concluidas = 0
+    for ocorrencia in ocorrencias:
+        if ocorrencia["status"] == "CONCLUIDA":
+            concluidas = concluidas + 1  
+    percentual = (concluidas / total) * 100
+    return percentual
+
+#Calccula o percentual pendente de ocorrências em relação ao total de ocorrências
+def calcular_percentual_pendentes(ocorrencias):
+    total = len(ocorrencias)
+    if total == 0:
+        return 0.0
+    pendentes = 0
+    for ocorrencia in ocorrencias:
+        if ocorrencia["status"] != "CONCLUIDA":
+            pendentes = pendentes + 1  
+    percentual = (pendentes / total) * 100
+    return percentual
+
+#calcula o tempo medio de atendimento das ocorrências concluídas 
+def calcular_tempo_medio_atendimento(ocorrencias):
+    total = 0
+    count = 0
+    for ocorrencia in ocorrencias:
+        if ocorrencia["status"] == "CONCLUIDA":
+            if ocorrencia["data_abertura"] is not None and ocorrencia["data_conclusao"] is not None:
+                tempo_atendimento = ocorrencia["data_conclusao"] - ocorrencia["data_abertura"]
+                total += tempo_atendimento
+                count += 1
+    if count == 0:
+        return 0.0
+    tempo_medio = total / count
+    return tempo_medio
+
+#Relatorio
+def gerar_relatorio(ocorrencias):
+    total_ocorrencias = len(ocorrencias)
+    percentual_concluidas = calcular_percentual_concluidas(ocorrencias)
+    percentual_pendentes = calcular_percentual_pendentes(ocorrencias)
+    tempo_medio_atendimento = calcular_tempo_medio_atendimento(ocorrencias)
+
+    relatorio = {
+        "total_ocorrencias": total_ocorrencias,
+        "percentual_concluidas": percentual_concluidas,
+        "percentual_pendentes": percentual_pendentes,
+        "tempo_medio_atendimento": tempo_medio_atendimento
+    }
+
+    return relatorio
 dados_validos, dados_invalidos = separar_ocorrencias(dados)
 
 indice = criar_indice_ocorrencias(dados_validos)
