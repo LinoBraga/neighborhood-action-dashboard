@@ -21,8 +21,6 @@ def carregar_ocorrencias(caminho_arquivo):
                 linha["data_conclusao"] = None
             ocorrencias.append(linha)
         return ocorrencias
-dados = carregar_ocorrencias("data/ocorrencias.csv")
-
 #verificar se a ocorrência é válida
 def validar_ocorrencia(ocorrencia):
     erros = []
@@ -56,11 +54,6 @@ def validar_ocorrencia(ocorrencia):
         erros.append("Ocorrência não concluída possui data de conclusão")
 
     return erros
-for ocorrencia in dados:
-    erros = validar_ocorrencia(ocorrencia)
-
-    if erros:
-        print(ocorrencia["id"], erros)
 
 #Separar e tratar dados
 def separar_ocorrencias(ocorrencias):
@@ -214,6 +207,12 @@ def atender_ocorrencias(fila_atendimento):
                 ocorrencia["id"],
                 novo_status
             )
+
+            adicionar_atividade(
+                pilha_historico,
+                f"Ocorrência {ocorrencia['id']}: {status_anterior} -> {novo_status}"
+            )
+
             print("Status atualizado com sucesso!")
 
         else:
@@ -367,30 +366,124 @@ def gerar_relatorio(ocorrencias):
     }
 
     return relatorio
-dados_validos, dados_invalidos = separar_ocorrencias(dados)
 
-indice = criar_indice_ocorrencias(dados_validos)
+#exibir ocorrencias 
+def exibir_ocorrencias(ocorrencias):
+    if not ocorrencias:
+        print("Nenhuma ocorrência encontrada.")
+        return
 
-resultado = buscar_por_id(indice, "OC007")
+    for ocorrencia in ocorrencias:
+        print("ID:", ocorrencia["id"])
+        print("Categoria:", ocorrencia["categoria"])
+        print("Descrição:", ocorrencia["descricao"])
+        print("Localidade:", ocorrencia["localidade"])
+        print("Data de Abertura:", ocorrencia["data_abertura"])
+        print("Status:", ocorrencia["status"])
+        print("Data de Conclusão:", ocorrencia["data_conclusao"])
+        print("-" * 40)
 
-if resultado is not None:
-    print("Ocorrência encontrada:")
-    print(resultado)
-else:
-    print("Ocorrência não encontrada.")
-resultado = buscar_por_categoria(dados_validos, "ILU")
+#Exibir o menu ao usuário
+def exibir_menu():
+    print("==============================================")
+    print("       NEIGHBORHOOD ACTION DASHBOARD")
+    print("==============================================")
+    print("1. Exibir ocorrências")
+    print("2. Cadastrar ocorrência")
+    print("3. Buscar ocorrência por ID")
+    print("4. Buscar por categoria")
+    print("5. Buscar por status")
+    print("6. Alterar status")
+    print("7. Exibir relatório")
+    print("8. Exibir histórico")
+    print("9. Adicionar ocorrência à fila de atendimento")
+    print("10. Atender ocorrências da fila")
+    print("11. Adicionar atividade à pilha de histórico")
+    print("12. Consultar última atividade da pilha de histórico")
+    print("13. Exibir atividades da pilha de histórico")
+    print("0. Sair")
+    
+#Função principal do sistema
+def main():
+    todas_ocorrencias = carregar_ocorrencias("data/ocorrencias.csv")
 
-print("Total encontrado:", len(resultado))
+    ocorrencias, dados_invalidos = separar_ocorrencias(todas_ocorrencias)   
+    indice = criar_indice_ocorrencias(ocorrencias)
 
-for ocorrencia in resultado:
-    print(ocorrencia["id"], ocorrencia["descricao"])
-resultado = buscar_por_status(dados_validos, "ABERTA")
+    while True:
+        exibir_menu()
+        opcao = input("Escolha uma opção: ")
 
-print("Total de ocorrências abertas:", len(resultado))
-
-for ocorrencia in resultado:
-    print(ocorrencia["id"], ocorrencia["descricao"])
-nova = cadastrar_ocorrencia(dados_validos)
-
-print("Total de ocorrências:", len(dados_validos))
-print("Nova ocorrência:", nova)
+        if opcao == "1":
+            exibir_ocorrencias(ocorrencias)
+        elif opcao == "2":
+            nova_ocorrencia = cadastrar_ocorrencia(ocorrencias)
+            if nova_ocorrencia:
+                indice[nova_ocorrencia["id"]] = nova_ocorrencia
+                adicionar_atividade(pilha_historico, f"Nova ocorrência cadastrada: {nova_ocorrencia['id']}")
+            
+        elif opcao == "3":
+            id = input("Digite o ID da ocorrência: ")
+            ocorrencia = buscar_por_id(indice, id)
+            if ocorrencia:
+                exibir_ocorrencias([ocorrencia])
+            else:
+                print("Ocorrência não encontrada.")
+        elif opcao == "4":
+            categoria = input("Digite a categoria (ILU, ACE, LIM, CON): ")
+            resultados = buscar_por_categoria(ocorrencias, categoria)
+            exibir_ocorrencias(resultados)
+        elif opcao == "5":
+            status = input("Digite o status (ABERTA, EM_ANALISE, CONCLUIDA): ")
+            resultados = buscar_por_status(ocorrencias, status)
+            exibir_ocorrencias(resultados)
+        elif opcao == "6":
+            id = input("Digite o ID da ocorrência: ")
+            novo_status = input("Digite o novo status (ABERTA, EM_ANALISE, CONCLUIDA): ")
+            resultado = alterar_status(ocorrencias, id, novo_status)
+            if resultado:
+                adicionar_atividade(pilha_historico, f"Status da ocorrência {id} atualizado para {novo_status}")
+                registrar_historico(ocorrencias, id, novo_status)
+                print("Status atualizado com sucesso!")
+            else:
+                print("Não foi possível alterar o status.")
+        elif opcao == "7":
+            relatorio = gerar_relatorio(ocorrencias)
+            print(relatorio)
+        elif opcao == "8":
+            id = input("Digite o ID da ocorrência: ")
+            historico = listar_historico(ocorrencias, id)
+            if historico is not None:
+                for registro in historico:
+                    print(registro)
+            else:
+                print("Ocorrência não encontrada.")
+        elif opcao == "9":
+            id = input("Digite o ID da ocorrência: ")
+            resultado = adicionar_fila(ocorrencias, fila_atendimento, id)
+            if resultado:
+                adicionar_atividade(pilha_historico, f"Ocorrência {id} adicionada à fila de atendimento.")
+                print("Ocorrência adicionada à fila de atendimento.")
+            else:
+                print("Ocorrência não encontrada.")
+        elif opcao == "10":
+            atender_ocorrencias(fila_atendimento)
+        elif opcao == "11":
+            atividade = input("Digite a atividade a ser adicionada à pilha de histórico: ")
+            adicionar_atividade(pilha_historico, atividade)
+            print("Atividade adicionada à pilha de histórico.")
+        elif opcao == "12":
+            ultima_atividade = consultar_ultima_atividade(pilha_historico)
+            if ultima_atividade:
+                print("Última atividade:", ultima_atividade)
+            else:
+                print("Nenhuma atividade registrada.")
+        elif opcao == "13":
+            exibir_atividades(pilha_historico)
+        elif opcao == "0":
+            print("Saindo do sistema...")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
+if __name__ == "__main__":
+    main()
