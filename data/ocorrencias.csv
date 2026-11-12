@@ -1,0 +1,14 @@
+id,categoria,descricao,localidade,data_abertura,status,data_conclusao
+OC001,ILU,Poste com iluminacao danificada,Rua das Flores,2,ABERTA,
+OC002,ACE,Calcada sem rampa de acesso,Avenida Central,3,EM_ANALISE,
+OC003,LIM,Acumulo de lixo em via publica,Rua Primavera,4,ABERTA,
+OC004,CON,Banco danificado na praca,Praca Central,5,CONCLUIDA,9
+OC005,ILU,Lampada queimada em poste,Rua das Acacias,6,EM_ANALISE,
+OC006,ACE,Calcada com obstaculos,Rua do Comercio,7,ABERTA,
+OC007,LIM,Lixeira publica danificada,Rua das Flores,8,CONCLUIDA,11
+OC008,CON,Playground com equipamento danificado,Praca das Arvores,9,EM_ANALISE,
+OC009,ILU,Iluminacao insuficiente em rua,Rua Primavera,10,ABERTA,
+OC010,ACE,Rampa de acesso danificada,Avenida Central,11,CONCLUIDA,15
+OC011,LIM,Descarte irregular de residuos,Rua das Acacias,12,EM_ANALISE,
+OC012,CON,Campo comunitario sem conservacao,Rua do Esporte,13,ABERTA,
+OC013,XYZ,Poste sem identificacao,Rua das Palmeiras,14,ABERTA,
