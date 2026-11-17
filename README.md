@@ -1,6 +1,11 @@
+FIAP - Faculdade de Informática e Administração Paulista
+
+![Logo FIAP](./logo_fiap.png)
+
 # Neighborhood Action Dashboard
 
-**Nome do grupo:** Tribo Nexux
+**Nome do grupo:** Tribo Nexus
+
 **Nome do projeto:** Neighborhood Action Dashboard
 
 ## 👨‍🎓 Integrantes
