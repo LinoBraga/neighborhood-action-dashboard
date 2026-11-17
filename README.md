@@ -235,7 +235,7 @@ Sabemos que a aplicação possui limitações, principalmente por utilizar dados
 **Integrantes:**
 
 - [João Lino Santos Braga] — RM [rm575103]
-- [Daniel Nogueira] — RM [rm575468]
+- [Daniel da Silva Nogueira] — RM [rm575468]
 - [Eduarda Queiroz] — RM [rm575068]
 - [Cassiane Andrade] — RM [rm574274]
 
