@@ -1,50 +1,43 @@
 # Neighborhood Action Dashboard
 
-**Global Solution 2026.2**  
-**Desafio: CitizenTech**
+**Nome do projeto/atividade:** Neighborhood Action Dashboard  
+**Nome do grupo:** [PREENCHER NOME DO GRUPO]
 
-## Sobre o projeto
+## 👨‍🎓 Integrantes
 
-O Neighborhood Action Dashboard é um sistema desenvolvido em Python para simular o registro e o acompanhamento de problemas encontrados em uma comunidade.
+- João Lino Santos Braga — RM575103
+- Daniel da Silva Nogueira — RM575468
+- Eduarda Queiroz — RM575068
+- Cassiane Andrade — RM574274
 
-A ideia surgiu a partir de uma situação bastante comum: problemas como postes com iluminação danificada, calçadas sem acessibilidade, acúmulo de lixo e espaços públicos precisando de manutenção nem sempre são organizados de uma maneira que facilite seu acompanhamento.
+## 👩‍🏫 Professores
 
-Pensando nisso, desenvolvemos uma aplicação que permite registrar essas ocorrências, consultar informações, acompanhar mudanças de status e visualizar alguns indicadores sobre os problemas identificados.
+**Tutor(a):** [PREENCHER NOME DO TUTOR]  
+**Coordenador(a):** André Godoi Chiovato
 
-Para o desenvolvimento do projeto, utilizamos o bairro fictício **Jardim Esperança** como cenário. Todas as ocorrências e localidades utilizadas são simuladas.
+---
 
-O objetivo é mostrar como conceitos básicos de programação podem ajudar a organizar informações e facilitar a compreensão das necessidades de uma comunidade.
+## 📜 Descrição
 
-## O problema que queremos representar
+O Neighborhood Action Dashboard é um projeto desenvolvido em Python para simular o registro, a organização e o acompanhamento de problemas relacionados à infraestrutura e à conservação de espaços coletivos de uma comunidade.
 
-Em uma comunidade, diferentes problemas de infraestrutura podem surgir ao longo do tempo. Sem uma organização adequada, fica difícil saber quais situações foram registradas, quais ainda precisam de atenção e quais já foram concluídas.
+A proposta surgiu a partir de uma situação comum em muitos bairros: problemas como iluminação danificada, calçadas sem acessibilidade, acúmulo de lixo e espaços públicos precisando de manutenção nem sempre são organizados de maneira que facilite seu acompanhamento.
 
-Nosso sistema busca representar uma maneira simples de organizar essas informações.
+Pensando nisso, desenvolvemos uma aplicação que permite cadastrar ocorrências, consultar registros, acompanhar mudanças de situação e gerar indicadores básicos sobre os problemas identificados.
 
-Com ele, é possível manter um conjunto de ocorrências, classificá-las por categoria, consultar seu andamento e gerar um resumo dos dados cadastrados.
+Para representar esse cenário, utilizamos o bairro fictício **Jardim Esperança**. Todas as ocorrências e localidades presentes no projeto são simuladas, sem representar solicitações reais a órgãos públicos.
 
-É importante destacar que esta é uma aplicação acadêmica. Ela não possui integração com prefeituras ou órgãos públicos e não realiza solicitações reais de serviços.
+### Objetivos do projeto
 
-## O que o sistema permite fazer?
+- Registrar problemas identificados na comunidade.
+- Organizar ocorrências por categoria e localidade.
+- Consultar registros por identificador, categoria e situação.
+- Atualizar o andamento das ocorrências.
+- Manter um histórico simples das alterações.
+- Organizar demandas em uma fila de atendimento.
+- Apresentar indicadores que ajudem a compreender os dados cadastrados.
 
-A aplicação possui um menu interativo no terminal. Por meio dele, o usuário consegue:
-
-- Visualizar as ocorrências cadastradas.
-- Registrar uma nova ocorrência.
-- Pesquisar uma ocorrência pelo seu identificador.
-- Filtrar registros por categoria ou situação.
-- Alterar o status de uma ocorrência.
-- Consultar o histórico de alterações.
-- Adicionar ocorrências a uma fila de atendimento.
-- Simular o atendimento das ocorrências que estão na fila.
-- Registrar e consultar atividades realizadas durante a execução.
-- Gerar um relatório com indicadores básicos.
-
-As operações foram organizadas em funções para facilitar a leitura do código e separar as responsabilidades de cada parte do sistema.
-
-## Como as ocorrências são organizadas?
-
-Para facilitar a consulta, definimos quatro categorias, cada uma representada por um código:
+### Categorias utilizadas
 
 | Código | Categoria |
 |---|---|
@@ -53,197 +46,267 @@ Para facilitar a consulta, definimos quatro categorias, cada uma representada po
 | LIM | Limpeza |
 | CON | Conservação de espaços coletivos |
 
-Cada ocorrência possui informações que ajudam a identificar e acompanhar o problema:
-
-- **ID:** código único da ocorrência.
-- **Categoria:** tipo de problema identificado.
-- **Descrição:** explicação breve da situação.
-- **Localidade:** rua ou espaço onde o problema foi registrado.
-- **Data de abertura:** dia simulado em que a ocorrência foi cadastrada.
-- **Status:** situação atual da ocorrência.
-- **Data de conclusão:** dia simulado em que a ocorrência foi concluída, quando aplicável.
-
 ### Situações das ocorrências
-
-Trabalhamos com três situações:
 
 | Status | Significado |
 |---|---|
-| ABERTA | A ocorrência foi registrada, mas ainda não foi concluída. |
-| EM_ANALISE | A ocorrência está em processo de análise. |
-| CONCLUIDA | A ocorrência foi marcada como concluída. |
+| ABERTA | Ocorrência registrada, mas ainda não concluída. |
+| EM_ANALISE | Ocorrência em processo de análise. |
+| CONCLUIDA | Ocorrência marcada como concluída. |
 
-Os registros iniciais ficam armazenados no arquivo `data/ocorrencias.csv`, que é lido pelo Python durante a inicialização do programa.
+### Funcionalidades
 
-Também implementamos validações para identificar registros com informações ausentes ou inconsistentes. Dessa maneira, os dados inválidos podem ser separados dos registros utilizados pelo sistema.
+A aplicação possui um menu interativo no terminal, por meio do qual o usuário pode:
 
-## Estruturas de dados utilizadas
+1. Exibir as ocorrências cadastradas.
+2. Cadastrar uma nova ocorrência.
+3. Buscar uma ocorrência pelo ID.
+4. Filtrar ocorrências por categoria.
+5. Filtrar ocorrências por status.
+6. Alterar o status de uma ocorrência.
+7. Consultar um relatório de indicadores.
+8. Consultar o histórico de uma ocorrência.
+9. Adicionar ocorrências à fila de atendimento.
+10. Simular o atendimento das ocorrências da fila.
+11. Adicionar atividades à pilha de histórico.
+12. Consultar a última atividade registrada.
+13. Exibir as atividades armazenadas na pilha.
 
-Uma parte importante do projeto foi escolher como armazenar e organizar as informações. Para isso, utilizamos estruturas de dados estudadas durante as primeiras fases do curso.
+---
+
+## 📁 Estrutura de pastas
+
+O projeto foi organizado para separar os dados, o código-fonte e a documentação, facilitando a manutenção e a compreensão dos arquivos.
+
+```text
+neighborhood-action-dashboard/
+│
+├── data/
+│   └── ocorrencias.csv
+│
+├── docs/
+│   └── uso_ia.md
+│
+├── src/
+│   └── sistema.py
+│
+├── README.md
+│
+└── .gitignore
+```
+
+### Descrição dos diretórios e arquivos
+
+**data/**
+
+Armazena o arquivo `ocorrencias.csv`, que contém os registros simulados utilizados na inicialização do sistema.
+
+**docs/**
+
+Reúne a documentação complementar do projeto, incluindo o arquivo `uso_ia.md`, que descreve como a inteligência artificial foi utilizada durante o desenvolvimento.
+
+**src/**
+
+Contém o código-fonte principal da aplicação, localizado no arquivo `sistema.py`.
+
+**README.md**
+
+Este documento, responsável por apresentar o projeto, suas funcionalidades, decisões técnicas e instruções de execução.
+
+**.gitignore**
+
+Define arquivos e diretórios que não devem ser enviados ao repositório Git, como arquivos temporários do Python e ambientes virtuais.
+
+---
+
+## 🧠 Decisões Técnicas
+
+Durante o desenvolvimento, buscamos utilizar estruturas simples que fossem adequadas às necessidades do projeto e aos conteúdos estudados nas três primeiras fases do curso.
+
+### Linguagem e armazenamento
+
+**Python**
+
+Foi escolhido por permitir trabalhar com funções, condicionais, laços de repetição e estruturas de dados de maneira simples e organizada.
+
+**CSV**
+
+Utilizamos um arquivo CSV para armazenar as ocorrências iniciais. Esse formato facilita a leitura dos registros e permite visualizar os dados de maneira organizada.
+
+**Interface textual**
+
+Optamos por uma aplicação executada diretamente no terminal, utilizando um menu numerado para orientar o usuário.
+
+### Estruturas de dados
 
 **Listas**
 
-Utilizamos listas para armazenar as ocorrências carregadas do arquivo CSV. Elas permitem percorrer os registros, realizar pesquisas, adicionar novas ocorrências e calcular indicadores.
+Utilizadas para armazenar o conjunto de ocorrências e permitir percorrer, consultar e adicionar registros.
 
 **Filas**
 
-A fila de atendimento organiza as ocorrências que aguardam processamento. Utilizamos o conceito FIFO (*First In, First Out*), no qual o primeiro elemento adicionado é o primeiro a ser retirado.
-
-Escolhemos essa estrutura para simular uma ordem de atendimento das demandas cadastradas na fila.
+Utilizadas para organizar as ocorrências que aguardam atendimento, seguindo o conceito FIFO (*First In, First Out*), em que o primeiro elemento adicionado é o primeiro a ser retirado.
 
 **Pilhas**
 
-A pilha registra atividades realizadas durante a execução do sistema. Ela segue o conceito LIFO (*Last In, First Out*), permitindo consultar a atividade mais recente por meio do último elemento armazenado.
+Utilizadas para registrar atividades realizadas durante a execução do sistema. Seguem o conceito LIFO (*Last In, First Out*), permitindo consultar a atividade mais recente.
 
 **Dicionários**
 
-Utilizamos dicionários para criar um índice de ocorrências pelo identificador. Assim, em vez de percorrer toda a lista para procurar um ID, podemos acessar o registro diretamente por sua chave.
+Utilizados para criar um índice de ocorrências pelo identificador, facilitando a localização dos registros.
 
 **Hierarquia**
 
-Também desenvolvemos uma organização hierárquica utilizando dicionários aninhados:
+Utilizamos dicionários aninhados para representar a organização:
 
 `Bairro → Categoria → Ocorrências`
 
-Essa estrutura representa o bairro Jardim Esperança como nível principal, suas categorias como segundo nível e as ocorrências como elementos agrupados.
+Essa estrutura permite agrupar os registros do Jardim Esperança de acordo com suas categorias.
 
-**Matrizes e organização dos indicadores**
+**Matrizes e indicadores**
 
-Criamos funções para contabilizar ocorrências por categoria, por status e pela combinação dessas informações. A função combinada utiliza atualmente dicionários aninhados; sua representação final será ajustada para atender ao formato de matriz ou lista de listas solicitado no desafio.
+Foram criadas funções para contabilizar ocorrências por categoria e por situação. A representação combinada utiliza atualmente dicionários aninhados, com ajuste ainda previsto para atender integralmente ao requisito de matriz ou lista de listas.
 
-## Regras e validações
+### Regras lógicas e validações
 
-Para evitar que informações incorretas prejudiquem o funcionamento do sistema, implementamos regras de validação durante o cadastro e a análise dos registros.
+O sistema utiliza estruturas condicionais para verificar os dados e controlar as operações.
 
-Entre as verificações realizadas estão:
+Entre as validações implementadas estão:
 
-- O identificador precisa estar preenchido.
-- A categoria deve corresponder a uma das opções permitidas.
-- A descrição e a localidade não podem estar vazias.
-- A data de abertura precisa estar preenchida.
-- O status deve ser um dos três valores definidos.
-- Uma ocorrência concluída precisa possuir data de conclusão.
-- Uma ocorrência que ainda não foi concluída não deve possuir data de conclusão.
-- O sistema verifica se o identificador já está cadastrado antes de aceitar uma nova ocorrência.
+- Verificar se o identificador foi informado.
+- Impedir o cadastro de identificadores já existentes.
+- Verificar se a categoria pertence às opções permitidas.
+- Verificar se descrição e localidade foram preenchidas.
+- Verificar se a data de abertura foi informada.
+- Impedir a utilização de situações desconhecidas.
+- Exigir data de conclusão quando uma ocorrência está concluída.
+- Impedir que ocorrências não concluídas possuam data de conclusão.
 
-Também utilizamos estruturas condicionais (`if`, `elif` e `else`) para controlar as operações e decidir qual ação deve ser executada em cada situação.
-
-Um exemplo é a validação utilizada no cálculo do tempo médio de atendimento:
+Um exemplo de expressão booleana utilizada é:
 
 ```python
 if ocorrencia["data_abertura"] is not None and ocorrencia["data_conclusao"] is not None:
 ```
 
-Nesse caso, o operador `and` exige que as duas datas estejam preenchidas. Somente assim o sistema realiza a subtração entre a data de abertura e a data de conclusão.
+Nesse caso, o operador `and` exige que as duas datas estejam preenchidas para que o cálculo do tempo de atendimento seja realizado.
 
-Outras condições utilizam os operadores `not` para verificar situações em que uma informação está ausente ou uma estrutura não possui elementos.
+Também utilizamos o operador `not` em verificações de ausência de informações e de estruturas vazias.
 
-## Indicadores do sistema
+A utilização do operador `or` e a documentação das três condições booleanas distintas exigidas pela atividade ainda precisam ser conferidas na revisão final do código.
 
-Além de organizar as ocorrências, o sistema calcula alguns indicadores para apresentar uma visão geral dos registros.
+### Indicadores
 
-Atualmente, trabalhamos com os seguintes cálculos:
+O sistema calcula indicadores básicos para ajudar a compreender os registros.
 
 **Total de ocorrências**
 
-Representa a quantidade de registros válidos carregados pelo sistema.
+Representa a quantidade total de registros válidos.
 
 **Percentual de ocorrências concluídas**
-
-Mostra qual parte das ocorrências já foi concluída em relação ao total.
-
-Fórmula:
 
 `(Quantidade de ocorrências concluídas / Total de ocorrências) × 100`
 
 **Percentual de ocorrências pendentes**
 
-Indica a proporção de ocorrências que ainda não foram concluídas.
-
-Fórmula:
-
 `(Quantidade de ocorrências não concluídas / Total de ocorrências) × 100`
 
 **Tempo médio de atendimento**
 
-Calcula quantos dias simulados, em média, foram necessários para concluir as ocorrências finalizadas.
-
-Fórmula:
-
 `Soma dos tempos de atendimento / Quantidade de ocorrências concluídas`
 
-O tempo de atendimento de cada ocorrência é calculado pela diferença entre a data de conclusão e a data de abertura.
+O tempo de atendimento de cada registro é calculado pela diferença entre a data de conclusão e a data de abertura.
 
-Esses indicadores permitem observar a quantidade de demandas concluídas, identificar pendências e compreender o tempo médio simulado de atendimento.
+Esses indicadores permitem observar a proporção de demandas concluídas, identificar pendências e analisar o tempo médio simulado de atendimento.
 
-As funções de contagem por categoria e situação também ajudam a identificar quais tipos de problemas aparecem com maior frequência no conjunto de dados.
+---
 
-## Como executar o projeto?
+## 🔧 Como executar o código
 
-Para executar o sistema, é necessário ter o Python instalado.
+Para executar o projeto, é necessário ter o Python instalado no computador.
 
-Primeiro, clone o repositório:
+Não são necessárias bibliotecas externas para a versão atual, pois utilizamos recursos nativos da linguagem.
+
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/LinoBraga/neighborhood-action-dashboard.git
 ```
 
-Entre na pasta do projeto:
+### 2. Acessar a pasta do projeto
 
 ```bash
 cd neighborhood-action-dashboard
 ```
 
-Depois, execute o arquivo principal:
+### 3. Executar a aplicação
 
 ```bash
 python src/sistema.py
 ```
 
-O menu será apresentado diretamente no terminal, permitindo acessar as funcionalidades disponíveis.
+Após a execução, o menu principal será apresentado no terminal, permitindo acessar as funcionalidades disponíveis.
 
-O arquivo com os registros iniciais está localizado em:
+### Arquivo de dados
+
+Os registros iniciais são carregados do seguinte arquivo:
 
 ```text
 data/ocorrencias.csv
 ```
 
-**Observação:** as novas ocorrências cadastradas durante a execução são mantidas na memória do programa. A gravação dessas alterações de volta no CSV não faz parte da implementação atual.
-
-## Acessibilidade, inclusão e privacidade
-
-Durante o desenvolvimento, buscamos manter uma aplicação simples de utilizar e compreender.
-
-A interface utiliza um menu com opções numeradas e mensagens que orientam o usuário durante as operações.
-
-Também consideramos importante representar diferentes necessidades da comunidade. Por isso, incluímos categorias relacionadas à iluminação, acessibilidade, limpeza e conservação dos espaços coletivos.
-
-Em relação à privacidade, utilizamos dados fictícios e localidades genéricas. O sistema não exige nomes, documentos, contatos ou outras informações pessoais dos moradores.
-
-## Conclusão e aprendizados
-
-O desenvolvimento do Neighborhood Action Dashboard foi uma oportunidade de aplicar, em um projeto prático, conceitos de programação que estudamos durante as primeiras fases do curso.
-
-Ao longo da construção, trabalhamos com leitura de arquivos CSV, criação de funções, estruturas condicionais, laços de repetição, listas, filas, pilhas, dicionários e cálculos de indicadores.
-
-Mais do que desenvolver um programa que executa determinadas operações, o projeto nos permitiu entender a importância de escolher estruturas adequadas para organizar informações e transformar dados simples em resultados que possam ser compreendidos.
-
-Sabemos que a aplicação possui limitações, principalmente por utilizar dados simulados, funcionar apenas pelo terminal e não possuir integração com serviços externos. Mesmo assim, ela demonstra como os fundamentos da programação podem ser utilizados para representar problemas cotidianos e organizar informações de maneira estruturada.
-
-## Equipe
-
-**Integrantes:**
-
-- [João Lino Santos Braga] — RM [rm575103]
-- [Daniel da Silva Nogueira] — RM [rm575468]
-- [Eduarda Queiroz] — RM [rm575068]
-- [Cassiane Andrade] — RM [rm574274]
-
-## Vídeo de apresentação
-
-[Falta só o vídeo: inserir aqui.]
+**Observação:** as ocorrências cadastradas durante a execução ficam armazenadas na memória do programa. A gravação dessas novas alterações no arquivo CSV não faz parte da implementação atual.
 
 ---
 
-**FIAP — Global Solution 2026.2**  
-**CitizenTech | Neighborhood Action Dashboard**
+## 📎 Links e Observações
+
+### 🔗 Links do Projeto
+
+- [Repositório GitHub](https://github.com/LinoBraga/neighborhood-action-dashboard) — Código-fonte e documentação do projeto.
+- [Vídeo de apresentação no YouTube](INSERIR_LINK_DO_VIDEO) — Demonstração do funcionamento da aplicação.
+
+---
+
+## 📢 Observações Gerais
+
+**Participação na Competição:**
+
+[ ] Sim, aceitamos participar.
+
+[ ] Não vamos participar.
+
+**Outras observações:**
+
+O Neighborhood Action Dashboard é um protótipo acadêmico desenvolvido para representar o acompanhamento de demandas comunitárias utilizando dados simulados.
+
+O sistema não possui integração com prefeituras, órgãos públicos ou serviços externos e não garante o atendimento das ocorrências cadastradas.
+
+### Acessibilidade, inclusão e privacidade
+
+Buscamos manter uma aplicação simples de utilizar e compreender, com opções numeradas e mensagens que orientam o usuário durante as operações.
+
+As categorias contemplam diferentes necessidades da comunidade, incluindo iluminação, acessibilidade, limpeza e conservação de espaços coletivos.
+
+Os registros utilizam dados fictícios e localidades genéricas, sem necessidade de identificação pessoal dos moradores.
+
+### Conclusão e aprendizados
+
+O desenvolvimento deste projeto permitiu aplicar, na prática, conceitos estudados durante as primeiras fases do curso.
+
+Ao longo da construção, trabalhamos com leitura de arquivos CSV, funções, estruturas condicionais, laços de repetição, listas, filas, pilhas, dicionários, validação de dados e cálculos de indicadores.
+
+Além da implementação das funcionalidades, o projeto ajudou a compreender a importância de escolher estruturas adequadas para organizar informações e transformar dados simples em resultados compreensíveis.
+
+Entre as limitações atuais estão a utilização de dados simulados, a interface exclusivamente textual e a ausência de integração com serviços externos.
+
+Mesmo com essas limitações, o projeto demonstra como os fundamentos da programação podem ser aplicados para representar situações cotidianas e organizar informações de uma comunidade.
+
+---
+
+## 📋 Licença
+
+Este projeto foi desenvolvido para fins acadêmicos, como parte da Global Solution 2026.2 da FIAP.
+
+O template utilizado como referência é o FIAP PORTFÓLIO AI, disponibilizado pela FIAP sob a licença Attribution 4.0 International (CC BY 4.0).
+
+Para mais informações: https://creativecommons.org/licenses/by/4.0/
