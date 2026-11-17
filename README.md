@@ -1,21 +1,19 @@
 # Neighborhood Action Dashboard
 
-**Nome do projeto/atividade:** Neighborhood Action Dashboard  
-**Nome do grupo:** [PREENCHER NOME DO GRUPO]
+**Nome do grupo:** Tribo Nexux
+**Nome do projeto:** Neighborhood Action Dashboard
 
 ## 👨‍🎓 Integrantes
 
-- João Lino Santos Braga — RM575103
-- Daniel da Silva Nogueira — RM575468
-- Eduarda Queiroz — RM575068
-- Cassiane Andrade — RM574274
+- Eduarda Queiroz Vila — rm575068 - 1CCOR
+- João Lino Santos Braga — rm575103 - 1CCOR
+- Daniel da Silva Nogueira — rm575468 - 1CCOS
+- Cassiane Maria Andrade Bezerra — rm574274 - 1CCOS
 
 ## 👩‍🏫 Professores
 
-**Tutor(a):** [PREENCHER NOME DO TUTOR]  
-**Coordenador(a):** André Godoi Chiovato
-
----
+**Tutor(a):** Lucas Gomes
+**Coordenador(a):** Valter Santiago
 
 ## 📜 Descrição
 
@@ -29,38 +27,38 @@ Para representar esse cenário, utilizamos o bairro fictício **Jardim Esperanç
 
 ### Objetivos do projeto
 
-- Registrar problemas identificados na comunidade.
-- Organizar ocorrências por categoria e localidade.
-- Consultar registros por identificador, categoria e situação.
 - Atualizar o andamento das ocorrências.
 - Manter um histórico simples das alterações.
 - Organizar demandas em uma fila de atendimento.
+- Registrar problemas identificados na comunidade.
+- Organizar ocorrências por categoria e localidade.
+- Consultar registros por identificador, categoria e situação.
 - Apresentar indicadores que ajudem a compreender os dados cadastrados.
 
 ### Categorias utilizadas
 
-| Código | Categoria |
-|---|---|
-| ILU | Iluminação |
-| ACE | Acessibilidade |
-| LIM | Limpeza |
-| CON | Conservação de espaços coletivos |
+| Código | Categoria                        |
+| ------ | -------------------------------- |
+| ILU    | Iluminação                       |
+| ACE    | Acessibilidade                   |
+| LIM    | Limpeza                          |
+| CON    | Conservação de espaços coletivos |
 
 ### Situações das ocorrências
 
-| Status | Significado |
-|---|---|
-| ABERTA | Ocorrência registrada, mas ainda não concluída. |
-| EM_ANALISE | Ocorrência em processo de análise. |
-| CONCLUIDA | Ocorrência marcada como concluída. |
+| Status     | Significado                                     |
+| ---------- | ----------------------------------------------- |
+| ABERTA     | Ocorrência registrada, mas ainda não concluída. |
+| EM_ANALISE | Ocorrência em processo de análise.              |
+| CONCLUIDA  | Ocorrência marcada como concluída.              |
 
 ### Funcionalidades
 
 A aplicação possui um menu interativo no terminal, por meio do qual o usuário pode:
 
-1. Exibir as ocorrências cadastradas.
+1. Exibir ocorrências cadastradas.
 2. Cadastrar uma nova ocorrência.
-3. Buscar uma ocorrência pelo ID.
+3. Buscar uma ocorrência por ID.
 4. Filtrar ocorrências por categoria.
 5. Filtrar ocorrências por status.
 6. Alterar o status de uma ocorrência.
@@ -76,7 +74,7 @@ A aplicação possui um menu interativo no terminal, por meio do qual o usuário
 
 ## 📁 Estrutura de pastas
 
-O projeto foi organizado para separar os dados, o código-fonte e a documentação, facilitando a manutenção e a compreensão dos arquivos.
+A arquitetura do projeto foi organizada a fim de separar os dados, o código-fonte e a documentação. Assim, facilitando a manutenção e a compreensão dos arquivos.
 
 ```text
 neighborhood-action-dashboard/
@@ -145,11 +143,11 @@ Utilizadas para armazenar o conjunto de ocorrências e permitir percorrer, consu
 
 **Filas**
 
-Utilizadas para organizar as ocorrências que aguardam atendimento, seguindo o conceito FIFO (*First In, First Out*), em que o primeiro elemento adicionado é o primeiro a ser retirado.
+Utilizadas para organizar as ocorrências que aguardam atendimento, seguindo o conceito FIFO (_First In, First Out_), em que o primeiro elemento adicionado é o primeiro a ser retirado.
 
 **Pilhas**
 
-Utilizadas para registrar atividades realizadas durante a execução do sistema. Seguem o conceito LIFO (*Last In, First Out*), permitindo consultar a atividade mais recente.
+Utilizadas para registrar atividades realizadas durante a execução do sistema. Seguem o conceito LIFO (_Last In, First Out_), permitindo consultar a atividade mais recente.
 
 **Dicionários**
 
@@ -174,11 +172,11 @@ O sistema utiliza estruturas condicionais para verificar os dados e controlar as
 Entre as validações implementadas estão:
 
 - Verificar se o identificador foi informado.
-- Impedir o cadastro de identificadores já existentes.
-- Verificar se a categoria pertence às opções permitidas.
-- Verificar se descrição e localidade foram preenchidas.
 - Verificar se a data de abertura foi informada.
 - Impedir a utilização de situações desconhecidas.
+- Impedir o cadastro de identificadores já existentes.
+- Verificar se descrição e localidade foram preenchidas.
+- Verificar se a categoria pertence às opções permitidas.
 - Exigir data de conclusão quando uma ocorrência está concluída.
 - Impedir que ocorrências não concluídas possuam data de conclusão.
 
@@ -190,9 +188,7 @@ if ocorrencia["data_abertura"] is not None and ocorrencia["data_conclusao"] is n
 
 Nesse caso, o operador `and` exige que as duas datas estejam preenchidas para que o cálculo do tempo de atendimento seja realizado.
 
-Também utilizamos o operador `not` em verificações de ausência de informações e de estruturas vazias.
-
-A utilização do operador `or` e a documentação das três condições booleanas distintas exigidas pela atividade ainda precisam ser conferidas na revisão final do código.
+Também utilizamos o operador `not` em verificações de ausência de informações e de estruturas vazias. A utilização do operador `or` e a documentação das três condições booleanas distintas exigidas pela atividade ainda precisam ser conferidas na revisão final do código.
 
 ### Indicadores
 
@@ -285,7 +281,7 @@ O sistema não possui integração com prefeituras, órgãos públicos ou servi�
 
 Buscamos manter uma aplicação simples de utilizar e compreender, com opções numeradas e mensagens que orientam o usuário durante as operações.
 
-As categorias contemplam diferentes necessidades da comunidade, incluindo iluminação, acessibilidade, limpeza e conservação de espaços coletivos.
+As categorias contemplam diferentes necessidades da comunidade, incluindo iluminação, acessibilidade, limpeza e conservação.
 
 Os registros utilizam dados fictícios e localidades genéricas, sem necessidade de identificação pessoal dos moradores.
 
