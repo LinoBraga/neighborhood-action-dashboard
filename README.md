@@ -18,6 +18,7 @@ FIAP - Faculdade de Informática e Administração Paulista
 ## 👩‍🏫 Professores
 
 **Tutor(a):** Lucas Gomes
+
 **Coordenador(a):** Valter Santiago
 
 ## 📜 Descrição
