@@ -189,30 +189,64 @@ def adicionar_fila(ocorrencias, fila_atendimento, id):
     return False
 
 
+
 # Atender ocorrências da fila
 def atender_ocorrencias(fila_atendimento):
-    while fila_atendimento:
+    quantidade_inicial = len(fila_atendimento)
+
+    if quantidade_inicial == 0:
+        print("Não existem ocorrências na fila de atendimento.")
+        return
+
+    for _ in range(quantidade_inicial):
         ocorrencia = fila_atendimento.pop(0)
-        print("Atendendo ocorrência:", ocorrencia["id"])
+
+        print("\nAtendendo ocorrência:", ocorrencia["id"])
+
         if ocorrencia["status"] == "CONCLUIDA":
             print("A ocorrência já está concluída.")
             continue
 
         status_anterior = ocorrencia["status"]
-        novo_status = input("Digite o novo status (ABERTA, EM_ANALISE, CONCLUIDA): ")
-        resultado = alterar_status([ocorrencia], ocorrencia["id"], novo_status)
+
+        novo_status = input(
+            "Digite o novo status (ABERTA, EM_ANALISE, CONCLUIDA): "
+        ).strip().upper()
+
+        resultado = alterar_status(
+            [ocorrencia],
+            ocorrencia["id"],
+            novo_status
+        )
 
         if resultado:
-            registrar_historico([ocorrencia], ocorrencia["id"], novo_status)
+            registrar_historico(
+                [ocorrencia],
+                ocorrencia["id"],
+                novo_status
+            )
+
             adicionar_atividade(
                 pilha_historico,
-                f"Ocorrência {ocorrencia['id']}: {status_anterior} -> {novo_status}",
+                f"Ocorrência {ocorrencia['id']}: "
+                f"{status_anterior} -> {novo_status}"
             )
+
             print("Status atualizado com sucesso!")
+
         else:
             print("Não foi possível alterar o status.")
-            fila_atendimento.insert(0, ocorrencia)
-    print("Fila de atendimento finalizada.")
+            print("Ocorrência devolvida ao final da fila.")
+
+            fila_atendimento.append(ocorrencia)
+
+    print("\nAtendimento da fila finalizado.")
+
+    if fila_atendimento:
+        print("Ocorrências aguardando atendimento:", len(fila_atendimento))
+    else:
+        print("Todas as ocorrências da fila foram processadas.")
+
 
 
 # Adicionar uma atividade à pilha de histórico
