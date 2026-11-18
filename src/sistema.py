@@ -134,6 +134,22 @@ def cadastrar_ocorrencia(ocorrencias):
         ocorrencias.append(ocorrencia)
         return ocorrencia
 
+# Salvando ocorrências em arquivo CSV
+def salvar_ocorrencia(caminho_arquivo, ocorrencia):
+    campos = [
+        "id",
+        "categoria",
+        "descricao",
+        "localidade",
+        "data_abertura",
+        "status",
+        "data_conclusao"
+    ]
+
+    with open(caminho_arquivo, "a", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.DictWriter(arquivo, fieldnames=campos)
+        escritor.writerow(ocorrencia)
+
 
 # Alterando status de ocorrências
 def alterar_status(ocorrencias, id, novo_status):
@@ -153,6 +169,24 @@ def alterar_status(ocorrencias, id, novo_status):
     return False
 
 
+# Atualizar os dados de todas as ocorrências no CSV
+def salvar_todas_ocorrencias(caminho_arquivo, ocorrencias):
+    campos = [
+        "id",
+        "categoria",
+        "descricao",
+        "localidade",
+        "data_abertura",
+        "status",
+        "data_conclusao"
+    ]
+
+    with open(caminho_arquivo, "w", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.DictWriter(arquivo, fieldnames=campos)
+        escritor.writeheader()
+        escritor.writerows(ocorrencias)
+        
+        
 # Registrar histórico de alterações de status
 def registrar_historico(ocorrencias, id, novo_status):
     for ocorrencia in ocorrencias:
@@ -459,7 +493,14 @@ def main():
         elif opcao == "2":
             nova_ocorrencia = cadastrar_ocorrencia(ocorrencias)
             if nova_ocorrencia:
+                salvar_ocorrencia("data/ocorrencias.csv", nova_ocorrencia)
+
                 indice[nova_ocorrencia["id"]] = nova_ocorrencia
+
+                adicionar_atividade(
+                    pilha_historico,
+                    f"Nova ocorrência cadastrada: {nova_ocorrencia['id']}",
+                )
                 adicionar_atividade(
                     pilha_historico,
                     f"Nova ocorrência cadastrada: {nova_ocorrencia['id']}",
@@ -496,7 +537,13 @@ def main():
                 print("Não foi possível alterar o status.")
         elif opcao == "7":
             relatorio = gerar_relatorio(ocorrencias)
-            print(relatorio)
+
+            print("\n========== RELATÓRIO ==========")
+            print("Total de ocorrências:", relatorio["total_ocorrencias"])
+            print("Percentual concluídas: {:.2f}%".format(relatorio["percentual_concluidas"]))
+            print("Percentual pendentes: {:.2f}%".format(relatorio["percentual_pendentes"]))
+            print("Tempo médio de atendimento: {:.2f} dias".format(relatorio["tempo_medio_atendimento"]))
+            print("===============================")
         elif opcao == "8":
             id = input("Digite o ID da ocorrência: ")
             historico = listar_historico(ocorrencias, id)
