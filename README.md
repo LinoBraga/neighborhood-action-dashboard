@@ -265,7 +265,7 @@ data/ocorrencias.csv
 ### 🔗 Links do Projeto
 
 - [Repositório GitHub](https://github.com/LinoBraga/neighborhood-action-dashboard) — Código-fonte e documentação do projeto.
-- [Vídeo de apresentação no YouTube](INSERIR_LINK_DO_VIDEO) — Demonstração do funcionamento da aplicação.
+- [Vídeo de apresentação no YouTube](https://youtu.be/knzphoi3EO4) — Demonstração do funcionamento da aplicação.
 
 ---
 
